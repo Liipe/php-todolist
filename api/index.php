@@ -11,6 +11,7 @@ $app->get('/',function() use ($app) {
 
 
 //http://url/api/tasks
+//get all task
 $app->get('/tasks', function() use ($app) {
     $tasks = getTasks();
     // app é o objeto do framework slim
@@ -20,6 +21,7 @@ $app->get('/tasks', function() use ($app) {
     echo json_encode($tasks);
 });
 
+//get a task by id
 $app->get ('/tasks/:id', function($id) use ($app){
    $tasks = getTasks();
    $index = array_search($id, array_column($tasks, 'id'));
@@ -31,6 +33,13 @@ $app->get ('/tasks/:id', function($id) use ($app){
    else{
        $app->response()->setStatus(204);
    }
+});
+
+$app->post('/tasks', function() use ($app) {
+
+    $taskJson = $app->request()->getBody();
+    $task = json_decode($taskJson);
+    echo $task->description;
 });
 
 //TODO move it to a DAO class
