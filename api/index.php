@@ -29,8 +29,7 @@ $app->get ('/tasks/:id', function($id) use ($app){
        echo json_encode($tasks[$index]);
    }
    else{
-       $app->response()->setStatus(404);
-       echo "Not found";
+       $app->response()->setStatus(204);
    }
 });
 
