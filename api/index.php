@@ -87,6 +87,37 @@ $app->post('/tasks', function() use ($app) {
     
 });
 
+
+/*
+HTTP PUT http://domain/api/tasks/1
+REQUEST Body
+{
+    "id:" 1,
+    "description:" "Learn REST",
+    "done": false
+}
+
+RESPONSE 200 OK
+{
+    "id:" 1,
+    "description:" "batatinha",
+    "done": false
+}
+*/
+$app->put('/tasks/:id', function($id) use ($app){
+    echo $app->request->getBody();
+});
+
+/*
+HTTP DELETE http://domain/api/tasks/1
+
+RESPONSE 200 OK
+Task deleted
+*/
+$app->delete('/tasks/:id', function($id) use ($app){
+    echo $id;
+});
+
 //TODO move it to a DAO class
 function getTasks(){
         $tasks = array(
