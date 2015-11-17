@@ -1,5 +1,7 @@
 <?php
 require 'vendor/autoload.php';
+require 'database/ConnectionFactory.php';
+require 'tasks/TaskService.php';
 
 $app = new \Slim\Slim();
 
@@ -31,7 +33,7 @@ RESPONSE 200 OK
 ]
 */
 $app->get('/tasks', function() use ($app) {
-    $tasks = getTasks();
+    $tasks = TaskService::listTasks();
     // app é o objeto do framework slim
     //response -> é a resposta (um json)
     //header -> seta o cabeçalho da resposta (response)
@@ -118,16 +120,5 @@ $app->delete('/tasks/:id', function($id) use ($app){
     echo $id;
 });
 
-//TODO move it to a DAO class
-function getTasks(){
-        $tasks = array(
-            array('id'=>1,'description'=>'Learn REST','done'=>false),
-            array('id'=>2,'description'=>'Learn JavaScript','done'=>false),
-            array('id'=>3,'description'=>'Learn English','done'=>false)
-
-        );
-        
-        return $tasks;
-}
 $app->run();
 ?>
